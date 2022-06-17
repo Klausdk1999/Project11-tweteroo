@@ -27,14 +27,15 @@ app.post('/sign-up', (req, res) => {
 
 app.post('/tweets', (req, res) => {
   const {username, tweet}=req.body;
+  console.log({username:username, tweet:tweet});
   tweets.push({username:username, tweet:tweet});
   res.sendStatus(200);
 });
 
 app.get('/tweets', (req, res) => {
 
-  if(tweets.length<=1){
-    res.send(400);
+  if(tweets.length<1){
+    res.sendStatus(400);
   }else{
     let last10tweets=[{
       username: "",
@@ -44,37 +45,20 @@ app.get('/tweets', (req, res) => {
   
     for(let i=tweets.length-1;i>tweets.length-10;i--){
       if(tweets[i]){
-        last10tweets.username=tweets[i].username;
-        console.log("username:"+username);
-        last10tweets.tweet=tweets[i].tweet;
-        console.log("tweet:"+tweet);
-      }
-      else{
-        console.log("vazio");
+        const {username,tweet}=tweets[i];
+        const compareaux=username;
+        console.log("avatar"+users.find(({username})=> username === tweets[i].username));
+        last10tweets.push({username:username,avatar:users.find(({ username,tweet })=> username === tweets[i].username).avatar, tweet:tweet});
+      }else{
+        console.log(`Vazio posição ${i}`);
       }
     }
     console.log("last10tweets.length: "+last10tweets.length);
-    console.log("last10tweets: "+last10tweets);
-  
-    let last10=[{
-      username: "",
-      avatar: "",
-      tweet: ""
-    }];
-  
-    for(let j=0;j<last10tweets.length;j++){
-      if(last10tweets[j]){
-        last10[j].username=last10tweets[j].username;
-        last10[j].tweet=last10tweets[j].tweet;
-        let avatarelement = users.find(({ username,tweet },j )=> username === (last10tweets[j].username));
-        last10[j].avatar=users[avatarelement];
-        console.log("last10: "+last10);
-      }else{
-      }
-    
-    }
-  
-    res.send(last10);
+    const {username,avatar,tweet}=last10tweets[0];
+    console.log("last10tweets: "+{username,avatar,tweet});
+    console.log("last10tweets: "+last10tweets[0]);
+
+    res.send(last10tweets);
   }
   
 });
