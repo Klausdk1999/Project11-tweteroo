@@ -14,7 +14,13 @@ const tweets =[
 
 let last10tweets=[{
   username: "bobesponja",
-  avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info" ,
+  avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
+  tweet: "eu amo o hub"
+}];
+
+let tweetsByUser=[{
+  username: "bobesponja",
+  avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
   tweet: "eu amo o hub"
 }];
 
@@ -45,15 +51,40 @@ app.get('/tweets', (req, res) => {
   }else{
     
     last10tweets=[];
+
     for(let i=tweets.length-1;i>tweets.length-11;i--){
       if(tweets[i]){
         const {username,tweet}=tweets[i];
         last10tweets.push({username:username,avatar:users.find(({ username,tweet })=> username === tweets[i].username).avatar, tweet:tweet});
-      }else{
       }
     }
 
-    res.res.status(201).send(last10tweets);
+    res.status(201).send(last10tweets);
+  }
+  
+});
+
+app.get('/tweets/:username', (req, res) => {
+
+  const paramUsername = req.params.username;
+
+  if(tweets.length<1){
+
+    res.sendStatus(400);
+
+  }else{
+    
+    tweetsByUser=[];
+
+    for(let i=0;i<tweets.length;i++){
+      if(tweets[i].username===paramUsername){
+        const {username,tweet}=tweets[i];
+        let avatar=users.find(({ username,avatar })=> username === paramUsername).avatar;
+        tweetsByUser.push({username:username,avatar:avatar, tweet:tweet});
+      }
+    }
+
+    res.status(201).send(tweetsByUser);
   }
   
 });
