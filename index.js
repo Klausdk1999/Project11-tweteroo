@@ -11,31 +11,30 @@ const tweets =[
     tweet: "eu amo o hub"
   }
 ]
-
+import {json} from 'express';
 import express from 'express';
 import cors from 'cors';
 
 const app = express();
 app.use(cors());
-console.log("inicio");
+app.use(json());
+
 app.post('/sign-up', (req, res) => {
-  let user=req.params.body;
-  console.log(req.body);
-  users.push(user);
-  res.send(user);
+  const {username, avatar} = req.body;
+  users.push({username:username, avatar:avatar});
+  res.sendStatus(200);
 });
 
 app.post('/tweets', (req, res) => {
-  let tweet=req.params.body;
-  console.log(req);
-  tweets.push(tweet);
-  res.send(tweet);
+  const {username, tweet}=req.body;
+  tweets.push({username:username, tweet:tweet});
+  res.sendStatus(200);
 });
 
 app.get('/tweets', (req, res) => {
 
   if(tweets.length<=1){
-    res.send();
+    res.send(400);
   }else{
     let last10tweets=[{
       username: "",
