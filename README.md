@@ -1,92 +1,16 @@
-- Geral
-    - [ ]  A porta utilizada pelo seu servidor deve ser a 5000 (isso facilita nossa avaliação 🙂)
-    - [ ]  Versionamento usando Git é obrigatório, crie um **repositório público** no seu perfil do GitHub
-    - [ ]  Faça commits a cada funcionalidade implementada
-- Armazenamento de dados
-    - [ ]  Para persistir os dados (usuários e tweets), utilize variáveis globais em memória
-    - [ ]  O formato de um **usuário** deve ser:
-        
-        ```jsx
-        {
-        	username: 'bobesponja', 
-        	avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info" 
-        }
-        ```
-        
-    - [ ]  O formato de um **tweet** deve ser:
-        
-        ```jsx
-        {
-        	username: "bobesponja",
-          tweet: "eu amo o hub",
-        }
-        ```
-        
-- **POST** `/sign-up`
-    - [ ]  Deve receber (pelo body da request), um parâmetro **username** e um **avatar**, contendo o nome do username do usuário e a sua foto de avatar:
-        
-        ```jsx
-        {
-            username: "bobesponja",
-        		avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info"
-        }
-        ```
-        
-    - [ ]  Salvar esse usuário num array de usuários do servidor
-    - [ ]  Por fim, retornar a mensagem `“OK”`
-- **POST** `/tweets`
-    - [ ]  Deve receber (pelo body da request), os parâmetros `username` e `tweet`:
-        
-        ```jsx
-        {
-        	username: "bobesponja",
-          tweet: "eu amo o hub"
-        }
-        ```
-        
-    - [ ]  Salvar esse tweet num array de tweets do servidor
-    - [ ]  Por fim, retornar a mensagem `“OK”`
-- **GET** `/tweets`
-    - [ ]  Retornar os 10 últimos tweets publicados
-        
-        ```jsx
-        [
-        	{
-        		username: "bobesponja",
-        		avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
-        	  tweet: "eu amo o hub"
-        	}
-        ]
-        ```
+1. Hospedar uma página HTML em uma máquina virtual fornecida pela nuvem da UFSC. A página deve exibir, no mínimo, os nomes dos componentes do grupo, além de um link para um arquivo pdf. Este arquivo pdf deve estar armazenado em outra máquina virtual, também fornecida pela nuvem da UFSC. A página web deve ser acessível através de qualquer máquina que esteja conectada à rede da UFSC (inclusive VPN).
 
+2. Hospedar uma página HTML em uma máquina virtual fornecida pela nuvem da UFSC que contenha dois campos e um botão "Enviar". Utilizar como exemplo a página disponível em aqui. Ao clicar no botão, deve-se enviar os valores contidos nos dois campos para um servidor HTTP, hospedado em outra máquina virtual. Os valores devem ser enviados no corpo da requisição HTTP (ou seja, não podem ser passados através de query strings). Ao receber a requisição, o servidor deve executar uma função (que será definida para cada grupo separadamente). O servidor deve retornar uma página HTML com a seguinte informação: "O resultado é <valor>", onde <valor> é o resultado da função executada pelo servidor. Por exemplo, se a função a ser executada for uma soma, e os valores enviados ao servidor forem 3 e 4, o servidor retornará "O resultado é 7".
 
- # Bônus
-Front-end bônus (esse front-end assume que todas as features bônus estão implementadas, então, se você quiser testar parte dos bônus, talvez precise modificar parte do front-end)
+Observações:
 
-[tweteroo-bonus.zip](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b5cdba2f-3a8b-45a5-a009-6641ee7d750a/tweteroo-bonus.zip)
-
-- Validação de dados
-    - [ ]  Todas as rotas deverão validar os dados recebidos, caso algum dado venha vazio ou no formato inválido, o servidor deverá retornar o status code 400 (BAD REQUEST) e não continuará com a execução da função. **Dica:** procure pelo método `res.sendStatus()`
-    - [ ]  **POST** `/sign-up` precisa validar se os valores de `username` e `avatar` foram enviados e caso contrário, deverá responder com a mensagem “Todos os campos são obrigatórios!”
-    - [ ]  **POST** `/tweets` precisa validar se os valores de `username` e `tweet` foram enviados e caso contrário, deverá responder com a mensagem “Todos os campos são obrigatórios!”
-- Status codes de requisições POST
-    - [ ]  Todas as requisições POST deverão retornar o status code 201 (CREATED) além do seu retorno já descrito (mensagens, JSONs, etc). **Dica:** procure pelo método `res.status()` e tente utilizá-lo junto do método `res.send()`
-- **GET** `/tweets/USERNAME`
-    - [ ]  Retornar todos os tweets publicados do usuario recebido por parâmetro de rota
-        
-        ```jsx
-        [
-        	{
-        		username: "bobesponja",
-        		avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
-        	  tweet: "eu amo o hub"
-        	}
-        ]
-        ```
-        
-- **GET** `/tweets` com paginação
-    - [ ]  Esse endpoint deverá passar a receber a página identificada via query string (`?page=1`). Esse é um recurso diferente do que vimos até agora (route params e body)
-    - [ ]  Modifique o endpoint para retornar corretamente os tweets da “página” (`page`) atual, esse endpoint será chamado ao clicar no botão “**Carregar mais**” (isso já foi feito no front-end). A primeira página corresponde aos ultimos 10 tweets, a segunda do 11 ao 20, a terceira do 21 ao 30, etc
-    - [ ]  Lembre-se de validar se o valor de `page` (query string) foi enviado e tem valor **maior que** 1 e caso contrário, deverá responder com a mensagem “Informe uma página válida!” e com o status code 400 (BAD REQUEST)
-- **POST** `/tweets` recebendo username por Header
-    - [ ]  Esse endpoint deverá parar de receber o valor de username do body e passar a recebê-lo por meio de um **header** `user`. Esse é um recurso diferente do que vimos até agora (route params e body)
+    Trabalho a ser realizado pelos mesmos grupos dos trabalhos anteriores. 
+    O professor atribuirá a cada grupo a função a ser implementada no item 2 do eunciado.
+    Os grupos deverão submeter um breve relatório indicando:
+        Nome dos componentes do grupo;
+        URL para acesso às páginas criadas para os itens 1 e 2 do enunciado.
+        Tecnologias utilizadas (todas as que o grupo achar relevante), justificando as escolhas.
+    O relatório deve ser entregue, via Moodle, até o dia 04/07/2022.
+    As tecnologias adotadas são de livre escolha dos grupos e não serão consideradas na avaliação. No entanto, a consciência a respeito das escolhas e da utilização das mesmas, sim.
+    Os grupos apresentarão sua solução para o professor em 06/07/2022 em horário a definir. Esta apresentação será informal e terá como finalidade elucidar aspectos que eventualmente não tenham ficado claros no relatório quanto à escolha e o uso das tecnologias adotadas.
+    A avaliação levará em conta (i) o correto funcionamento da solução e (ii) a adequação do relatório a respeito da escolha das tecnologias e das suas aplicações na solução apresentada e (iii) a apresentação da solução ao professor.
